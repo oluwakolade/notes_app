@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:notely/constants/colors.dart';
 
-class NotelyAppBar extends StatelessWidget implements PreferredSizeWidget {
+class NotesAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget widget;
   final Widget? prefix;
   final Widget? suffix;
 
-  const NotelyAppBar({
+  const NotesAppBar({
     super.key,
     required this.widget,
     this.prefix,

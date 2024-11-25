@@ -5,12 +5,14 @@ import 'package:notely/constants/text.dart';
 
 class AppTextField extends StatelessWidget {
   final TextEditingController controller;
-  final String errorText;
+  final String? Function(String?)? validator;
+  // final String errorText;
   final String label;
   const AppTextField(
       {super.key,
+      required this.validator,
       required this.controller,
-      required this.errorText,
+      // required this.errorText,
       required this.label});
 
   @override
@@ -24,10 +26,11 @@ class AppTextField extends StatelessWidget {
           height: 10,
         ),
         TextFormField(
+          validator: validator,
           controller: controller,
           // forceErrorText: errorText,
           autocorrect: false,
-          style: GoogleFonts.nunito(
+          style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.w700,
               color: AppColors.headerText),

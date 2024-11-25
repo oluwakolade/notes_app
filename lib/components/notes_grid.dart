@@ -21,6 +21,7 @@ class NoteGrid extends StatelessWidget {
       ),
       itemBuilder: (context, int index) {
         return NotesCard(
+          isGrid: true,
           note: notes[index],
         );
       },

@@ -10,7 +10,7 @@ class Logo extends StatelessWidget {
     return Text(
       'NOTES APP',
       style: GoogleFonts.titanOne(
-          fontSize: 20,
+          fontSize: 24,
           fontWeight: FontWeight.w400,
           color: AppColors.headerText),
     );
@@ -90,29 +90,33 @@ class Header4 extends StatelessWidget {
 
 class Header5 extends StatelessWidget {
   final String text;
-  const Header5({super.key, required this.text});
+  final Color color;
+  const Header5(
+      {super.key, required this.text, this.color = AppColors.bodyText});
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       style: GoogleFonts.poppins(
-          color: AppColors.bodyText, fontSize: 16, fontWeight: FontWeight.w700),
+          color: color, fontSize: 16, fontWeight: FontWeight.w700),
     );
   }
 }
 
 class ButtonText extends StatelessWidget {
   final String text;
+  final Color color;
 
-  const ButtonText({super.key, required this.text});
+  const ButtonText(
+      {super.key, required this.text, this.color = AppColors.offWhite});
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       style: GoogleFonts.poppins(
-          color: AppColors.offWhite, fontSize: 20, fontWeight: FontWeight.w900),
+          color: color, fontSize: 20, fontWeight: FontWeight.w900),
     );
   }
 }

@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:notely/components/app_bar.dart';
 import 'package:notely/components/no_notes.dart';
 import 'package:notely/components/notes_grid.dart';
@@ -24,11 +26,15 @@ class _RecentNotesState extends State<RecentNotes> {
 
   bool isGrid = true;
 
+  void logUsersOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: NotelyAppBar(
+      appBar: NotesAppBar(
           widget: const Header4(text: "Recent Notes"),
           prefix: IconButton(
             onPressed: () {
@@ -36,13 +42,25 @@ class _RecentNotesState extends State<RecentNotes> {
             },
             icon: const Icon(Icons.chevron_left),
           ),
-          suffix: IconButton(
-            onPressed: () {
-              setState(() {
-                isGrid = !isGrid;
-              });
-            },
-            icon: Icon(isGrid ? Icons.table_chart : Icons.table_bar),
+          suffix: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    isGrid = !isGrid;
+                  });
+                },
+                icon: Icon(isGrid ? Icons.table_chart : Icons.table_rows),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              IconButton(
+                onPressed: logUsersOut,
+                icon: const Icon(FontAwesomeIcons.arrowRightFromBracket),
+              ),
+            ],
           )),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -59,6 +77,7 @@ class _RecentNotesState extends State<RecentNotes> {
             ),
           );
         },
+        shape: const CircleBorder(),
         backgroundColor: AppColors.accent,
         child: const Icon(
           Icons.note_add,
@@ -81,7 +100,6 @@ class _RecentNotesState extends State<RecentNotes> {
                   children: [
                     //SEARCH BAR
                     const AppSearchBar(),
-
                     const SizedBox(
                       height: 10,
                     ),

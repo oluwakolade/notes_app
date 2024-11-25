@@ -13,8 +13,9 @@ import 'package:provider/provider.dart';
 
 class NotesCard extends StatelessWidget {
   final Notes note;
+  final bool isGrid;
 
-  const NotesCard({super.key, required this.note});
+  const NotesCard({super.key, required this.note, required this.isGrid});
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +76,13 @@ class NotesCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
 
-            const Expanded(
-              child: SizedBox(),
-            ),
+            isGrid
+                ? const Expanded(
+                    child: SizedBox(),
+                  )
+                : const SizedBox(
+                    height: 10,
+                  ),
             //DATE
             Header5(
               text: DateFormat('yMd').format(

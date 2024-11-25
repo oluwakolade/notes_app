@@ -43,7 +43,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
       style: GoogleFonts.poppins(
         fontSize: 16,
         fontWeight: FontWeight.w700,
-        color: AppColors.headerText,
+        color: AppColors.bodyText,
       ),
       decoration: InputDecoration(
         prefixIcon: const Icon(

@@ -15,6 +15,7 @@ class NoteList extends StatelessWidget {
       itemBuilder: (context, int index) {
         return NotesCard(
           note: notes[index],
+          isGrid: false,
         );
       },
       separatorBuilder: (context, index) => const SizedBox(height: 10),
