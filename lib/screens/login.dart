@@ -23,9 +23,11 @@ class _LoginState extends State<Login> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   void signUsersIn() async {
+    //FORM VALIDATOR LOGIC
     if (formKey.currentState == null || !formKey.currentState!.validate()) {
       return;
     }
+    //LOADING SPINNER
     showDialog(
         context: context,
         builder: (context) {
@@ -35,7 +37,7 @@ class _LoginState extends State<Login> {
             ),
           );
         });
-
+//AUTHENTICATION LOGIC WITH FIREBASE
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
@@ -51,6 +53,7 @@ class _LoginState extends State<Login> {
     }
   }
 
+//ERROR MESSAGE FOR TEXTFIELD
   void errorMessage(String message) {
     showDialog(
       context: context,
@@ -73,58 +76,67 @@ class _LoginState extends State<Login> {
         child: SingleChildScrollView(
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Lottie.asset(
-                  "assets/login_signup.json",
-                  height: 150,
-                  repeat: true,
-                  animate: true,
-                  reverse: true,
+                //HEADER AND ANIMATION
+                Column(
+                  children: [
+                    Lottie.asset(
+                      "assets/login_signup.json",
+                      height: 150,
+                      repeat: true,
+                      animate: true,
+                      reverse: true,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Header1(text: "Sign in to access your saved notes"),
+                  ],
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const Header1(text: "Sign in to access your saved notes"),
-                const SizedBox(
-                  height: 30,
-                ),
+                //FORM
                 Form(
                   key: formKey,
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    child: Column(
-                      children: [
-                        //email address
-                        AppTextField(
-                          controller: emailController,
-                          label: "Email Address",
-                          validator: Validator.emailValidator,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        //password
-                        AppTextField(
-                          controller: passwordController,
-                          label: "Password",
-                          validator: Validator.passwordValidator,
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        AppButton(onPressed: signUsersIn, text: "Sign In"),
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-                        AppTextButton(
-                            onPressed: widget.onTap,
-                            text: "Don't have an account?"),
-                      ],
-                    ),
+                  child: Column(
+                    children: [
+                      //EMAIL TEXTFIELD
+                      AppTextField(
+                        controller: emailController,
+                        label: "Email Address",
+                        validator: Validator.emailValidator,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      //PASSWORD TEXTFIELD
+                      AppTextField(
+                        controller: passwordController,
+                        label: "Password",
+                        validator: Validator.passwordValidator,
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                    ],
                   ),
-                )
+                ),
+
+                //APP BUTTONS
+                Column(
+                  children: [
+                    AppButton(onPressed: signUsersIn, text: "Sign In"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AppTextButton(
+                        onPressed: widget.onTap,
+                        text: "Don't have an account?"),
+                  ],
+                ),
               ],
             ),
           ),

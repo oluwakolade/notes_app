@@ -22,10 +22,10 @@ class RecentNotes extends StatefulWidget {
 }
 
 class _RecentNotesState extends State<RecentNotes> {
-  List<Notes> notes = List.empty(growable: true);
-
+  // List<Notes> notes = List.empty(growable: true);
   bool isGrid = true;
 
+//LOGOUT
   void logUsersOut() {
     FirebaseAuth.instance.signOut();
   }
@@ -35,34 +35,32 @@ class _RecentNotesState extends State<RecentNotes> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: NotesAppBar(
-          widget: const Header4(text: "Recent Notes"),
-          prefix: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.chevron_left),
-          ),
-          suffix: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    isGrid = !isGrid;
-                  });
-                },
-                icon: Icon(isGrid ? Icons.table_chart : Icons.table_rows),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              IconButton(
-                onPressed: logUsersOut,
-                icon: const Icon(FontAwesomeIcons.arrowRightFromBracket),
-              ),
-            ],
-          )),
+        widget: const Header4(text: "Recent Notes"),
+        suffix: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            //CHNAGE FROM GRID TO LISTVIEW
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  isGrid = !isGrid;
+                });
+              },
+              icon: Icon(isGrid ? Icons.table_chart : Icons.table_rows),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            //LOG USERS OUT
+            IconButton(
+              onPressed: logUsersOut,
+              icon: const Icon(FontAwesomeIcons.arrowRightFromBracket),
+            ),
+          ],
+        ),
+      ),
 
+//FLOATING ACTION BUTTON
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton.small(
         onPressed: () {
@@ -115,7 +113,6 @@ class _RecentNotesState extends State<RecentNotes> {
                               ),
                       ),
                     ] else
-                      //add animation
                       const Expanded(
                         child: Center(
                           child: Header3(text: "No notes found!"),

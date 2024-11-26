@@ -58,6 +58,7 @@ class _NewNoteState extends State<NewNote> {
 
   @override
   Widget build(BuildContext context) {
+    //POP SCREEN POP WITHOUT SAVING NOTE
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {

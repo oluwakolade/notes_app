@@ -26,9 +26,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   void signUsersUp() async {
+    // FORM VALIDATION
     if (formKey.currentState == null || !formKey.currentState!.validate()) {
       return;
     }
+    //LOADING SPINNER
     showDialog(
         context: context,
         builder: (context) {
@@ -38,7 +40,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
           );
         });
-
+//FIREBASE AUTH
     try {
       if (passwordController.text == confirmPasswordController.text) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -66,6 +68,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
+//ERROR MESSAGE
   void errorMessage(String message) {
     showDialog(
       context: context,
@@ -88,28 +91,34 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         child: SingleChildScrollView(
           child: Center(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Lottie.asset(
-                  "assets/login_signup.json",
-                  height: 150,
-                  repeat: true,
-                  animate: true,
-                  reverse: true,
+                //HEADER AND ANIMATION
+                Column(
+                  children: [
+                    Lottie.asset(
+                      "assets/login_signup.json",
+                      height: 150,
+                      repeat: true,
+                      animate: true,
+                      reverse: true,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Header1(text: "Register to save your notes"),
+                  ],
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const Header1(text: "Register to save your notes"),
-                const SizedBox(
-                  height: 30,
-                ),
+                //FORM
                 Form(
                   key: formKey,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      //email address
+                      //EMAIL
                       AppTextField(
                           controller: emailController,
                           label: "Email Address",
@@ -117,43 +126,44 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      //password
+                      //PASSWORD
                       AppTextField(
                           controller: passwordController,
                           label: "Password",
                           validator: Validator.passwordValidator),
-                      const SizedBox(
-                        height: 8,
-                      ),
+
                       const SizedBox(
                         height: 10,
                       ),
-                      //password
+                      //CONFIRM PASSWORD
                       AppTextField(
                           controller: confirmPasswordController,
                           label: "Confirm Password",
                           validator: Validator.passwordValidator),
-
-                      const SizedBox(
-                        height: 40,
-                      ),
-
-                      AppButton(onPressed: signUsersUp, text: "Register"),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      GoogleButton(
-                        onPressed: () => AuthService().signInWithGoogle(),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      AppTextButton(
-                          onPressed: widget.onTap,
-                          text: "Already have an Acount?")
                     ],
                   ),
                 ),
+                const SizedBox(
+                  height: 40,
+                ),
+                //APPBUTTONS
+                Column(
+                  children: [
+                    AppButton(onPressed: signUsersUp, text: "Register"),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GoogleButton(
+                      onPressed: () => AuthService().signInWithGoogle(),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AppTextButton(
+                        onPressed: widget.onTap,
+                        text: "Already have an Acount?"),
+                  ],
+                )
               ],
             ),
           ),
@@ -162,9 +172,3 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 }
-
-
-
-//final user = FirebaseAuth.instance.currentUser!;
-
-//user.firstName!
